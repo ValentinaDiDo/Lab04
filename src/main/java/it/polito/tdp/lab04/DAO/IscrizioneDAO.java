@@ -75,5 +75,34 @@ public class IscrizioneDAO {
 		}else
 			return false;
 	}
+	
+	
+	public String iscrivi(int matricola,String codins) {
+		String sql = "insert into iscrizione "+
+				"values (?,?)";
+		//verifico se è già iscritto
+		if(verificaIscrizione(codins, matricola)==true)
+			return "Lo studente è già iscritto al corso";
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, matricola);
+			ps.setString(2, codins);
+			ResultSet rs = ps.executeQuery();
+		
+			conn.close();
+			
+			if(verificaIscrizione(codins, matricola)==true) {
+				return "ISCRIZIONE AVVENUTA CORRETTAMENTE";
+			}else
+				return "Problemi durante l'iscrizione";
+			
+			
+		}catch(SQLException e ) {
+			throw new RuntimeException("Errore connessione database o iscrizione studente", e);
+		}
+		//ho iscitto il blala
+	}
 
 }

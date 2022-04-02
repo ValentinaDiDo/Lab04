@@ -103,7 +103,7 @@ public class FXMLController {
     	try {
     		matricola = Integer.parseInt(matr);
     	}catch(NumberFormatException e) {
-    		txtResult.setText("inserisci un periodo numerico!");
+    		txtResult.setText("inserisci una matricola numerica!");
     		return;
     	}
     	
@@ -119,6 +119,32 @@ public class FXMLController {
     @FXML
     void handleIscrivi(ActionEvent event) {
 
+    	//iscrizione di uno studente al corso
+    	String matricolaS = txtMatricola.getText();
+    	//verifico correttezza matricola
+    	if(matricolaS.length()==0 || matricolaS.equals(null)) 
+    		txtResult.setText("Per favore, inserire matricola");
+    	
+    	int matricola;
+    	try {
+    		matricola = Integer.parseInt(matricolaS);
+    	}catch(NumberFormatException e) {
+    		txtResult.setText("inserisci una matricola numerica!");
+    		return;
+    	}
+    	//verifico esistenza studente nel sistema
+    	Studente s = this.model.getStudenteMatricola(matricola);
+    	if(s.equals(null))
+    		txtResult.appendText("La matricola non è presente nel sistema");
+    	
+    	//prendo il corso
+    	String corso = cmbCorsi.getValue();
+    	String codins = corso.substring(0,7);
+    	
+    	//iscrivo
+    	String result = this.model.iscrivi(matricola, codins);
+    	txtResult.appendText(result);
+    	
     }
 
     @FXML
@@ -148,9 +174,9 @@ public class FXMLController {
     	
     	boolean b = model.verificaIscrizione(codins, matricola);
     	if(b == true) {
-    		txtResult.setText("LO STUDENTE E' ISCRITTO AL CORSO");
+    		txtResult.appendText("LO STUDENTE E' ISCRITTO AL CORSO");
     	}else
-    		txtResult.setText("LO STUDENTE NON E' ISCRITTO AL CORSO");
+    		txtResult.appendText("LO STUDENTE NON E' ISCRITTO AL CORSO");
     	
     }
 

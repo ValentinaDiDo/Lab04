@@ -41,4 +41,8 @@ public class Model {
 	public boolean verificaIscrizione(String codins, int matricola) {
 		return this.iscrizioneDAO.verificaIscrizione(codins, matricola);
 	}
+	
+	public String iscrivi (int matricola, String codins) {
+		return this.iscrizioneDAO.iscrivi(matricola, codins);
+	}
 }
