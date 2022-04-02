@@ -12,7 +12,8 @@ public class ConnectDB {
 	public static Connection getConnection() {
 
 		try {
-				Connection connection = DriverManager.getConnection(jdbcUrl);
+			String sql = "jdbc:mysql://localhost/iscritticorsi?user=root&password=kikkalove01";
+				Connection connection = DriverManager.getConnection(sql);
 				return connection;
 
 		} catch (SQLException e) {
